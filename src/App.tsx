@@ -1,31 +1,21 @@
-import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import 'primereact/resources/themes/tailwind-light/theme.css';
-import { Button, InputText } from 'primereact';
+import FileTable from './components/FileTable';
+import FileTree from './components/FileTree';
+import SampleWaveform from './components/SampleWaveform';
 
 function App() {
-    const [greetMsg, setGreetMsg] = useState('');
-    const [name, setName] = useState('');
-
-    async function greet() {
-        // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-        setGreetMsg(await invoke('greet', { name }));
-    }
-
     return (
-        <div className="container">
-            <h1>Welcome to Delve!</h1>
-
-            <div>
-                <InputText
-                    id="greet-input"
-                    onChange={e => setName(e.currentTarget.value)}
-                    placeholder="Enter a name..."
-                />
-                <Button label="Testerino" onClick={greet} />
+        <div className="flex flex-column h-screen">
+            <div className="flex justify-content-center align-items-center h-15rem">
+                <SampleWaveform />
             </div>
-
-            <p>{greetMsg}</p>
+            <div className="flex flex-grow-1">
+                <div className="flex w-3 flex-shrink-1 justify-center-start align-items-start border-1 border-round border-200 border-solid m-2">
+                    <FileTree />
+                </div>
+                <div className="flex flex-grow-1 flex-shrink-0 justify-content-center align-items-start border-1 border-round border-200 border-solid m-2">
+                    <FileTable />
+                </div>
+            </div>
         </div>
     );
 }
