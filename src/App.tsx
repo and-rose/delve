@@ -5,7 +5,7 @@ import SampleWaveform from './components/SampleWaveform';
 function App() {
     return (
         <div className="flex flex-column h-screen">
-            <div className="flex justify-content-center align-items-center h-15rem">
+            <div className="flex justify-content-center align-content-center h-15rem border-1 border-round border-200 border-solid m-2">
                 <SampleWaveform />
             </div>
             <div className="flex flex-grow-1">
