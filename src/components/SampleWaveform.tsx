@@ -18,6 +18,16 @@ function SampleWaveform() {
         }
     };
 
+    function secondsToHHMMSSMS(seconds: number) {
+        //limit ms to 3 digits
+        const ms = Math.floor((seconds % 1) * 1000);
+        const s = Math.floor(seconds % 60);
+        const m = Math.floor((seconds / 60) % 60);
+        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${ms
+            .toString()
+            .padStart(3, '0')}`;
+    }
+
     useEffect(() => {
         if (wavesurferRef.current !== undefined) {
             wavesurferRef.current.on('audioprocess', (time: number) => {
@@ -40,11 +50,20 @@ function SampleWaveform() {
 
     return (
         <div className="min-w-full flex flex-column justify-content-around align-content-center">
-            <div className="w-full min-w-full" ref={waveContainerRef}>
-                <WaveSurfer onMount={handleWSMount}>
-                    <WaveForm id="waveform" responsive={true}></WaveForm>
-                    <div id="timeline" />
-                </WaveSurfer>
+            <div className="flex flex-row justify-content-between align-content-center max-w-full gap-3 mx-3">
+                <div className="flex align-items-center h-full w-6rem">
+                    <p>{secondsToHHMMSSMS(position)}</p>
+                </div>
+                <div className="flex w-full min-w-5" ref={waveContainerRef}>
+                    <div className="min-w-full flex flex-column justify-content-around align-content-center">
+                        <WaveSurfer onMount={handleWSMount}>
+                            <WaveForm id="waveform" responsive={true}></WaveForm>
+                        </WaveSurfer>
+                    </div>
+                </div>
+                <div className="flex align-items-center h-full w-6rem">
+                    <p>{secondsToHHMMSSMS(position)}</p>
+                </div>
             </div>
             <div className="flex w-full justify-content-center align-items-center min-w-full gap-5">
                 <span className="p-buttonset ">

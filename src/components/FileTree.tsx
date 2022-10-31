@@ -5,6 +5,7 @@ import { NodeService } from '../service/NodeService';
 
 function FileTree() {
     const [nodes, setNodes] = useState([]);
+    const [selectedKey, setSelectedKey] = useState(null);
     const [expandedKeys, setExpandedKeys] = useState({});
 
     useEffect(() => {
@@ -19,6 +20,11 @@ function FileTree() {
                 value={nodes as TreeNode[]}
                 className="border-0 p-0"
                 expandedKeys={expandedKeys}
+                selectionKeys={selectedKey}
+                selectionMode="single"
+                onSelectionChange={e => setSelectedKey(e.value)}
+                onSelect={() => {}}
+                onUnselect={() => {}}
             />
         </div>
     );
